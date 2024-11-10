@@ -1,0 +1,38 @@
+class Solution {
+    public int[] solution(int[] answers) {
+        int[][] person = {
+            {1, 2, 3, 4, 5},      // 수포자 1
+            {2, 1, 2, 3, 2, 4, 2, 5}, // 수포자 2
+            {3, 3, 1, 1, 2, 2, 4, 4, 5, 5} // 수포자 3 
+        };
+        
+        int[] score = new int[3];
+
+        // 맞힌 문제 수 계산
+        for (int i = 0; i < answers.length; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (answers[i] == person[j][i % person[j].length]) {
+                    score[j]++;
+                }
+            }
+        }
+
+        int maxScore = Math.max(Math.max(score[0], score[1]), score[2]);
+
+        int count = 0;
+        for (int i = 0; i < 3; i++) {
+            if (score[i] == maxScore) {
+                count++;
+            }
+        }
+
+        int[] result = new int[count];
+        int index = 0;
+        for (int i = 0; i < 3; i++) {
+            if (score[i] == maxScore) {
+                result[index++] = i + 1;
+            }
+        }
+        return result;
+    }
+}
